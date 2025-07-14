@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+    http://maven.apache.org/POM/4.0.0
+    https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- 项目坐标 -->
+  <groupId>com.example.silenceregion</groupId>
+  <artifactId>silenceregion</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>SilenceRegion</name>
+  <description>多区域实体静音管理插件 for Paper 1.21.x</description>
+
+  <!-- 编译参数：Java 17 -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.release>17</maven.compiler.release>
+  </properties>
+
+  <!-- 仓库列表：PaperMC + WorldEdit -->
+  <repositories>
+    <!-- PaperMC 官方仓库 -->
+    <repository>
+      <id>papermc-public</id>
+      <url>https://repo.papermc.io/repository/maven-public/</url>
+    </repository>
+    <!-- WorldEdit 官方仓库 -->
+    <repository>
+      <id>worldedit-enginehub</id>
+      <url>https://maven.enginehub.org/repo/</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <!-- Paper API，由服务器运行时提供 -->
+    <dependency>
+      <groupId>io.papermc.paper</groupId>
+      <artifactId>paper-api</artifactId>
+      <version>1.21.1-R0.1-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- WorldEdit-Bukkit，用于读取玩家 //wand 选区 -->
+    <dependency>
+      <groupId>com.sk89q.worldedit</groupId>
+      <artifactId>worldedit-bukkit</artifactId>
+      <version>7.2.15</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Java 编译插件 -->
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
+        <configuration>
+          <release>${maven.compiler.release}</release>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

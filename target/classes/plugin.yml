@@ -1,0 +1,8 @@
+name: SilenceRegion
+main: com.example.silenceregion.SilenceRegionPlugin
+version: 1.0
+api-version: "1.21"
+commands:
+  sr:
+    description: 区域静音管理
+    usage: /sr <create|delete|list|info|types|reload> …
