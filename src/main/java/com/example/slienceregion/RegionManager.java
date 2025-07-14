@@ -1,16 +1,14 @@
-package com.example.silenceregion;
+package com.example.slienceregion;
 
+import java.util.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.Location;
-import java.util.*;
 
 public class RegionManager {
-  private final SilenceRegionPlugin plugin;
+  private final SlienceregionPlugin plugin;
   private final Map<String, Region> regions = new HashMap<>();
 
-  public RegionManager(SilenceRegionPlugin plugin) {
+  public RegionManager(SlienceregionPlugin plugin) {
     this.plugin = plugin;
   }
 
@@ -44,20 +42,53 @@ public class RegionManager {
     return false;
   }
 
-  public Collection<Region> listRegions() { return regions.values(); }
-  public Region get(String name) { return regions.get(name); }
+  public Collection<Region> listRegions() {
+    return regions.values();
+  }
+
+  /** 按优先级从高到低获取区域列表 */
+  public List<Region> listRegionsByPriority() {
+    List<Region> sorted = new ArrayList<>(regions.values());
+    sorted.sort((a, b) -> Integer.compare(b.getPriority(), a.getPriority()));
+    return sorted;
+  }
+
+  public Region get(String name) {
+    return regions.get(name);
+  }
+
+  /** 更新区域到配置文件 */
+  public void updateRegion(Region r) {
+    plugin.getConfig().set("regions." + r.getName(), null);
+    r.saveToConfig(plugin.getConfig().getConfigurationSection("regions"));
+    plugin.saveConfig();
+  }
 
   /** 对所有已存活实体静音或恢复 */
   public void applyToExisting() {
+    // 收集所有涉及的世界
+    Set<org.bukkit.World> worlds = new HashSet<>();
     for (Region r : regions.values()) {
-      for (Entity e : r.getCorner1().getWorld().getEntities()) {
-        if (r.contains(e.getLocation())
-            && r.getTypes().contains(e.getType())) {
-          e.setSilent(true);
-        } else if (r.contains(e.getLocation())) {
-          // 在区域但类型不匹配，或已被移除
-          e.setSilent(false);
+      if (r.getCorner1().getWorld() != null) {
+        worlds.add(r.getCorner1().getWorld());
+      }
+    }
+
+    // 遍历每个世界的所有实体
+    for (org.bukkit.World world : worlds) {
+      for (Entity e : world.getEntities()) {
+        boolean shouldBeSilent = false;
+
+        // 按优先级从高到低检查实体是否在任何区域内且类型匹配
+        for (Region r : listRegionsByPriority()) {
+          if (r.contains(e.getLocation()) && r.getTypes().contains(e.getType())) {
+            shouldBeSilent = true;
+            break;
+          }
         }
+
+        // 设置实体静音状态
+        e.setSilent(shouldBeSilent);
       }
     }
   }

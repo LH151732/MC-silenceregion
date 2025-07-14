@@ -1,2 +1,5 @@
-/home/Claude/MC/custom/snowball/snowknockback/src/main/java/com/example/snowknockback/SnowKnockbackPlugin.java
-/home/Claude/MC/custom/snowball/snowknockback/src/main/java/com/example/snowknockback/SnowballListener.java
+/home/Claude/MC/custom/silence/silenceregion/src/main/java/com/example/slienceregion/SlienceRegionCommand.java
+/home/Claude/MC/custom/silence/silenceregion/src/main/java/com/example/slienceregion/Region.java
+/home/Claude/MC/custom/silence/silenceregion/src/main/java/com/example/slienceregion/SlienceregionPlugin.java
+/home/Claude/MC/custom/silence/silenceregion/src/main/java/com/example/slienceregion/RegionManager.java
+/home/Claude/MC/custom/silence/silenceregion/src/main/java/com/example/slienceregion/SlienceRegionListener.java

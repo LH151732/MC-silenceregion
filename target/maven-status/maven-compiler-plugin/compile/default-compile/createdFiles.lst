@@ -1,2 +1,5 @@
-com/example/snowknockback/SnowballListener.class
-com/example/snowknockback/SnowKnockbackPlugin.class
+com/example/slienceregion/SlienceregionPlugin.class
+com/example/slienceregion/SlienceRegionListener.class
+com/example/slienceregion/RegionManager.class
+com/example/slienceregion/Region.class
+com/example/slienceregion/SlienceRegionCommand.class
